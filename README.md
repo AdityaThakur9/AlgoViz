@@ -17,11 +17,11 @@ AlgoViz is an interactive web application that visually demonstrates and compare
 
 ## Comparison Mode Screenshot
 
-![AlgoViz Comparison Mode](ss.jpg)
+![Comparison Mode](ss.jpg)
 
 ## Live Demo
 
-[View AlgoViz in action](https://yourusername.github.io/AlgoViz)
+[View AlgoViz in action](https://adityathakur9.github.io/AlgoViz)
 
 ## Technologies Used
 
@@ -42,7 +42,7 @@ AlgoViz is an interactive web application that visually demonstrates and compare
 
 1. Clone the repository
    ```
-   git clone https://github.com/yourusername/AlgoViz.git
+   git clone https://github.com/adityathakur9/AlgoViz.git
    cd AlgoViz
    ```
 
