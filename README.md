@@ -17,7 +17,7 @@ AlgoViz is an interactive web application that visually demonstrates and compare
 
 ## Comparison Mode Screenshot
 
-![Comparison Mode](ss.jpg)
+![Comparison Mode](SS.jpg)
 
 ## Live Demo
 
