@@ -24,7 +24,6 @@ const App: React.FC = () => {
   const [currentStep1, setCurrentStep1] = useState(0)
   const [currentStep2, setCurrentStep2] = useState(0)
   const [error, setError] = useState('')
-  const [isLoaded, setIsLoaded] = useState(true)
   const [isPlaying, setIsPlaying] = useState(false)
   const playIntervalRef = useRef<NodeJS.Timeout | null>(null)
   const playIntervalRef2 = useRef<NodeJS.Timeout | null>(null)
@@ -204,7 +203,6 @@ const App: React.FC = () => {
 
   // Controls for visualizer
   const renderControls = (
-    isPlaying: boolean, 
     onRun: () => void, 
     onPause: () => void, 
     onPrev: () => void, 
@@ -217,10 +215,6 @@ const App: React.FC = () => {
     setSpeed: (speed: number) => void
   ) => (
     <Controls
-      isPlaying={isPlaying}
-      setIsPlaying={setIsPlaying}
-      speed={speed}
-      setSpeed={setSpeed}
       onRun={onRun}
       onPause={onPause}
       onPrev={onPrev}
@@ -229,6 +223,8 @@ const App: React.FC = () => {
       disablePause={disablePause}
       disablePrev={disablePrev}
       disableNext={disableNext}
+      speed={speed}
+      setSpeed={setSpeed}
     />
   );
 
@@ -510,7 +506,6 @@ const App: React.FC = () => {
               {steps1[currentStep1]?.description}
             </Box>
             {renderControls(
-              isPlaying,
               handleRun,
               handlePause,
               () => handleStepChange1(Math.max(0, currentStep1 - 1)),
@@ -556,7 +551,6 @@ const App: React.FC = () => {
             </Box>
             <Box sx={{ mb: 1, color: '#b71c1c', fontWeight: 600 }}>Swaps: {swapCount1}</Box>
             {renderControls(
-              isPlaying,
               handleRun,
               handlePause,
               () => handleStepChange1(Math.max(0, currentStep1 - 1)),
@@ -599,7 +593,6 @@ const App: React.FC = () => {
             </Box>
             <Box sx={{ mb: 1, color: '#b71c1c', fontWeight: 600 }}>Swaps: {swapCount2}</Box>
             {renderControls(
-              isPlaying,
               handleRun,
               handlePause,
               () => handleStepChange2(Math.max(0, currentStep2 - 1)),

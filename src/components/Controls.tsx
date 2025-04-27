@@ -1,9 +1,7 @@
 import { Box, Slider, IconButton, Button, Tooltip } from '@mui/material'
-import { PlayArrow, Pause, Speed, PlayCircle, SkipPrevious, SkipNext } from '@mui/icons-material'
+import { Pause, Speed, PlayCircle, SkipPrevious, SkipNext } from '@mui/icons-material'
 
 interface ControlsProps {
-  isPlaying: boolean
-  setIsPlaying: (playing: boolean) => void
   speed: number
   setSpeed: (speed: number) => void
   onRun: () => void
@@ -16,7 +14,7 @@ interface ControlsProps {
   disableNext: boolean
 }
 
-const Controls = ({ isPlaying, setIsPlaying, speed, setSpeed, onRun, onPause, onPrev, onNext, disableRun, disablePause, disablePrev, disableNext }: ControlsProps) => {
+const Controls = ({ speed, setSpeed, onRun, onPause, onPrev, onNext, disableRun, disablePause, disablePrev, disableNext }: ControlsProps) => {
   return (
     <Box sx={{ 
       display: 'flex', 

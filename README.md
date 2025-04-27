@@ -1,6 +1,6 @@
 # AlgoViz - Algorithm Visualizer
 
-![AlgoViz Screenshot](screenshot.png)
+![AlgoViz Home](home.jpg)
 
 ## Overview
 
@@ -14,6 +14,10 @@ AlgoViz is an interactive web application that visually demonstrates and compare
 - **Comparison Mode**: Compare two algorithms side-by-side
 - **Code Highlighting**: Synchronized code highlighting as algorithms execute
 - **Responsive Design**: Works on desktop and mobile devices
+
+## Comparison Mode Screenshot
+
+![AlgoViz Comparison Mode](ss.jpg)
 
 ## Live Demo
 

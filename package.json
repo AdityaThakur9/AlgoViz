@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://yourusername.github.io/AlgoViz",
+  "homepage": "https://adityathakur9.github.io/AlgoViz",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
