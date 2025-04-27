@@ -1,0 +1,76 @@
+# Project History & Context
+
+## Project Name
+Algorithm Visualizer Web App
+
+## Project Goal
+A web application to visually demonstrate and compare sorting algorithms. Users can input arrays, select algorithms and languages, visualize step-by-step execution, and control playback speed. The UI is designed for clarity, interactivity, and educational value.
+
+## What Has Been Implemented
+- **Core UI:**
+  - Responsive layout using React and Material-UI (MUI)
+  - Monaco Editor for code display and line highlighting
+  - Visualizer for array/algorithm steps (side-by-side with editor)
+  - Controls for running, pausing, resetting, randomizing, and switching modes
+- **Algorithm Support:**
+  - Bubble Sort, Quick Sort, Merge Sort, Insertion Sort
+  - Languages: JavaScript, Python, C++
+- **Features:**
+  - Single and comparison mode (side-by-side algorithm comparison)
+  - Dynamic code highlighting in the editor as the algorithm runs
+  - Adjustable speed slider (up to 10x)
+  - Randomize array (random size and values)
+  - Reset and explain buttons
+  - Proper enable/disable and press effects for all controls
+  - Editor and graph are always the same size and aligned
+- **Recent Fixes:**
+  - Changing speed while running no longer pauses the visualization
+  - Only one editor and one graph are shown in single mode, side by side
+  - Layout and UX improvements for clarity and usability
+
+## Libraries, Frameworks, and Languages
+- **Frontend:**
+  - React (TypeScript)
+  - Material-UI (MUI)
+  - Monaco Editor (`@monaco-editor/react`)
+- **Styling:**
+  - CSS (App.css, Visualizer.css, etc.)
+- **Other:**
+  - Custom code parsing and step generation utilities
+
+## Notable Design/UX Decisions
+- Editor and visualizer are always side by side in single mode
+- Code line highlighting is synchronized with the current algorithm step
+- All controls are accessible and visually distinct
+- Comparison mode disables the editor and shows two visualizers
+
+## How to Use This File
+- **For new AI agents or developers:**
+  - Read this file to understand the current state, tech stack, and design decisions
+  - Update this file after every major feature, refactor, or dependency change
+- **Update Instructions:**
+  - Add new features, fixes, or design changes to the "What Has Been Implemented" and "Recent Fixes" sections
+  - Add new libraries or frameworks to the "Libraries, Frameworks, and Languages" section
+  - Note any major design/UX decisions or changes
+
+---
+_Last updated: April 26, 2024_
+
+## Update Commitment
+- This file will be updated after every major or minor change
+- Updates will include content worked on, plans made, and changes implemented
+- The file will be updated whenever the project is closed or the app is closed
+
+## GitHub Deployment Plan
+- Created .gitignore file to exclude node_modules and build files
+- Created README.md with project description, features, and usage instructions
+- Added MIT LICENSE file
+- Updated package.json with GitHub Pages configuration
+- Installed gh-pages package for deployment
+- Updated vite.config.ts with base path for GitHub Pages
+- Next steps:
+  - Install Git if not already installed
+  - Initialize Git repository
+  - Create GitHub repository named "AlgoViz"
+  - Push code to GitHub
+  - Deploy to GitHub Pages 

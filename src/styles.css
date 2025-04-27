@@ -1,0 +1,23 @@
+.highlighted-line {
+  background-color: rgba(255, 255, 0, 0.2) !important;
+  width: 100%;
+}
+
+.highlighted-line-glyph {
+  background-color: rgba(255, 255, 0, 0.5) !important;
+  width: 5px !important;
+}
+
+/* Editor customization */
+.monaco-editor .margin {
+  background-color: #1e1e1e !important;
+}
+
+.monaco-editor .line-numbers {
+  color: #858585 !important;
+}
+
+/* Make sure the editor container takes full height */
+.monaco-editor {
+  height: 100% !important;
+} 
