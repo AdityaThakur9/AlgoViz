@@ -375,16 +375,16 @@ const App: React.FC = () => {
               <Typography variant="body2" sx={{ mb: 1 }}><b>Space Complexity:</b> {explainContent.content.spaceComplexity}</Typography>
               <Typography variant="body2" sx={{ mb: 1 }}><b>Key Steps:</b> {explainContent.content.keySteps.join(', ')}</Typography>
               <Typography variant="body2" sx={{ mb: 1 }}><b>Use Cases:</b> {explainContent.content.useCases.join(', ')}</Typography>
-              <Typography variant="body2" sx={{ mt: 2, mb: 2 }}><b>Example Array:</b> [{pendingArray}]</Typography>
               <Typography variant="h6" sx={{ mt: 2, mb: 1 }}>Step-by-step:</Typography>
-              <ol style={{ maxHeight: 200, overflowY: 'auto', paddingLeft: 20 }}>
+              <ul style={{ maxHeight: 200, overflowY: 'auto', paddingLeft: 0, listStyle: 'none' }}>
                 {explainContent.steps && explainContent.steps.map((step: Step, idx: number) => (
                   <li key={idx} style={{ marginBottom: 8 }}>
+                    <span style={{ fontWeight: 500 }}>Step {idx + 1}:</span> <br />
                     <span style={{ fontWeight: 500 }}>Array:</span> [{step.array.join(', ')}] <br />
                     <span style={{ fontStyle: 'italic', color: '#1976d2' }}>{step.description}</span>
                   </li>
                 ))}
-              </ol>
+              </ul>
             </>
           )}
         </Paper>
