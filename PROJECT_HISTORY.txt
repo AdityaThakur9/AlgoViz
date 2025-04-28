@@ -27,6 +27,7 @@ A web application to visually demonstrate and compare sorting algorithms. Users 
   - Changing speed while running no longer pauses the visualization
   - Only one editor and one graph are shown in single mode, side by side
   - Layout and UX improvements for clarity and usability
+  - Fixed the case-sensitivity issue for the comparison mode screenshot in the README by matching the filename (SS.jpg) with the reference in the README, ensuring the image displays correctly on GitHub.
 
 ## Libraries, Frameworks, and Languages
 - **Frontend:**
@@ -54,23 +55,22 @@ A web application to visually demonstrate and compare sorting algorithms. Users 
   - Note any major design/UX decisions or changes
 
 ---
-_Last updated: April 26, 2024_
+_Last updated: April 27, 2024_
 
 ## Update Commitment
 - This file will be updated after every major or minor change
 - Updates will include content worked on, plans made, and changes implemented
 - The file will be updated whenever the project is closed or the app is closed
 
-## GitHub Deployment Plan
-- Created .gitignore file to exclude node_modules and build files
-- Created README.md with project description, features, and usage instructions
-- Added MIT LICENSE file
-- Updated package.json with GitHub Pages configuration
-- Installed gh-pages package for deployment
-- Updated vite.config.ts with base path for GitHub Pages
-- Next steps:
-  - Install Git if not already installed
-  - Initialize Git repository
-  - Create GitHub repository named "AlgoViz"
-  - Push code to GitHub
-  - Deploy to GitHub Pages 
+## GitHub Deployment Status
+- ✅ Created .gitignore file to exclude node_modules and build files
+- ✅ Created README.md with project description, features, and usage instructions
+- ✅ Added MIT LICENSE file
+- ✅ Updated package.json with GitHub Pages configuration
+- ✅ Installed gh-pages package for deployment
+- ✅ Updated vite.config.ts with base path for GitHub Pages
+- ✅ Initialized Git repository
+- ✅ Created GitHub repository named "AlgoViz"
+- ✅ Pushed code to GitHub
+- ✅ Successfully deployed to GitHub Pages
+- ✅ Live demo available at: https://adityathakur9.github.io/AlgoViz 
