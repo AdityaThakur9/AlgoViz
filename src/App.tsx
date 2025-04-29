@@ -8,6 +8,7 @@ import './App.css'
 import { ALGORITHM_EXPLANATIONS } from './constants'
 import MonacoEditor from '@monaco-editor/react'
 import Controls from './components/Controls'
+import Welcome3D from './components/Welcome3D'
 
 const STEP_INTERVAL = 500; // ms
 
@@ -57,6 +58,8 @@ const App: React.FC = () => {
 
   const monacoEditorRef = useRef<any>(null);
   const monacoInstanceRef = useRef<any>(null);
+
+  const [showWelcome, setShowWelcome] = useState(true);
 
   // Input handlers update pending state
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -364,43 +367,171 @@ const App: React.FC = () => {
   }, [currentStep1, steps1]);
 
   return (
-    <Container maxWidth="xl" sx={{ py: 4, minHeight: '100vh' }}>
-      <Modal open={explainOpen} onClose={() => setExplainOpen(false)}>
-        <Paper sx={{ maxWidth: 600, mx: 'auto', my: 8, p: 4, outline: 'none' }}>
-          {explainContent && (
-            <>
-              <Typography variant="h5" sx={{ mb: 2 }}>{explainContent.title} - Explanation</Typography>
-              <Typography variant="subtitle1" sx={{ mb: 1 }}>{explainContent.content.overview}</Typography>
-              <Typography variant="body2" sx={{ mb: 1 }}><b>Time Complexity:</b> {explainContent.content.timeComplexity}</Typography>
-              <Typography variant="body2" sx={{ mb: 1 }}><b>Space Complexity:</b> {explainContent.content.spaceComplexity}</Typography>
-              <Typography variant="body2" sx={{ mb: 1 }}><b>Key Steps:</b> {explainContent.content.keySteps.join(', ')}</Typography>
-              <Typography variant="body2" sx={{ mb: 1 }}><b>Use Cases:</b> {explainContent.content.useCases.join(', ')}</Typography>
-              <Typography variant="h6" sx={{ mt: 2, mb: 1 }}>Step-by-step:</Typography>
-              <ul style={{ maxHeight: 200, overflowY: 'auto', paddingLeft: 0, listStyle: 'none' }}>
-                {explainContent.steps && explainContent.steps.map((step: Step, idx: number) => (
-                  <li key={idx} style={{ marginBottom: 8 }}>
-                    <span style={{ fontWeight: 500 }}>Step {idx + 1}:</span> <br />
-                    <span style={{ fontWeight: 500 }}>Array:</span> [{step.array.join(', ')}] <br />
-                    <span style={{ fontStyle: 'italic', color: '#1976d2' }}>{step.description}</span>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-        </Paper>
-      </Modal>
-      <Box sx={{ mb: 4 }}>
-        <Typography variant="h4" sx={{ color: '#fff', mb: 3, fontWeight: 600, textAlign: 'center', letterSpacing: '0.5px' }}>
-          Algorithm Visualizer
-        </Typography>
-        <Paper sx={{ p: 3, bgcolor: '#1e1e1e', display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3, alignItems: 'flex-start' }}>
-          {/* Controls and visualizer on the right */}
-          <Box sx={{ flex: 2, minWidth: 350, display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <Box sx={{ width: '100%', maxWidth: 500 }}>
-              {/* Only show the main AlgorithmControls in single mode, or for array input in comparison mode */}
-              {(!isComparisonMode) && (
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+    <>
+      {showWelcome && <Welcome3D onEnter={() => setShowWelcome(false)} />}
+      {!showWelcome && (
+        <Container maxWidth="xl" sx={{ py: 4, minHeight: '100vh' }}>
+          <Modal open={explainOpen} onClose={() => setExplainOpen(false)}>
+            <Paper sx={{ maxWidth: 600, mx: 'auto', my: 8, p: 4, outline: 'none' }}>
+              {explainContent && (
+                <>
+                  <Typography variant="h5" sx={{ mb: 2 }}>{explainContent.title} - Explanation</Typography>
+                  <Typography variant="subtitle1" sx={{ mb: 1 }}>{explainContent.content.overview}</Typography>
+                  <Typography variant="body2" sx={{ mb: 1 }}><b>Time Complexity:</b> {explainContent.content.timeComplexity}</Typography>
+                  <Typography variant="body2" sx={{ mb: 1 }}><b>Space Complexity:</b> {explainContent.content.spaceComplexity}</Typography>
+                  <Typography variant="body2" sx={{ mb: 1 }}><b>Key Steps:</b> {explainContent.content.keySteps.join(', ')}</Typography>
+                  <Typography variant="body2" sx={{ mb: 1 }}><b>Use Cases:</b> {explainContent.content.useCases.join(', ')}</Typography>
+                  <Typography variant="h6" sx={{ mt: 2, mb: 1 }}>Step-by-step:</Typography>
+                  <ul style={{ maxHeight: 200, overflowY: 'auto', paddingLeft: 0, listStyle: 'none' }}>
+                    {explainContent.steps && explainContent.steps.map((step: Step, idx: number) => (
+                      <li key={idx} style={{ marginBottom: 8 }}>
+                        <span style={{ fontWeight: 500 }}>Step {idx + 1}:</span> <br />
+                        <span style={{ fontWeight: 500 }}>Array:</span> [{step.array.join(', ')}] <br />
+                        <span style={{ fontStyle: 'italic', color: '#1976d2' }}>{step.description}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </Paper>
+          </Modal>
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h4" sx={{ color: '#fff', mb: 3, fontWeight: 600, textAlign: 'center', letterSpacing: '0.5px' }}>
+              Algorithm Visualizer
+            </Typography>
+            <Paper sx={{ p: 3, bgcolor: '#1e1e1e', display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3, alignItems: 'flex-start' }}>
+              {/* Controls and visualizer on the right */}
+              <Box sx={{ flex: 2, minWidth: 350, display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <Box sx={{ width: '100%', maxWidth: 500 }}>
+                  {/* Only show the main AlgorithmControls in single mode, or for array input in comparison mode */}
+                  {(!isComparisonMode) && (
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <AlgorithmControls
+                        algorithm={pendingAlgorithm1}
+                        language={pendingLanguage1}
+                        languages={languages}
+                        algorithms={algorithms}
+                        onLanguageChange={handleLanguage1Change}
+                        onAlgorithmChange={handleAlgorithm1Change}
+                        isComparisonMode={isComparisonMode}
+                        showArrayInput={true}
+                        inputArray={pendingArray}
+                        onInputArrayChange={handleInputChange}
+                        inputError={error}
+                        onExplainClick={() => handleExplain(pendingAlgorithm1, pendingArray)}
+                        explainButtonRight
+                      />
+                    </Box>
+                  )}
+                  {/* In comparison mode, show only the array input field */}
+                  {isComparisonMode && (
+                    <Box sx={{ mt: 2 }}>
+                      <label htmlFor="array-input" style={{ color: '#fff', marginBottom: 4, display: 'block', fontWeight: 500 }}>Input Array</label>
+                      <input
+                        id="array-input"
+                        className="array-input"
+                        value={pendingArray}
+                        onChange={handleInputChange}
+                        placeholder="Enter array (e.g., 64,34,25,12,22,11,90)"
+                        style={{ width: '100%', padding: '12px', fontSize: '16px', borderRadius: '4px', border: '1px solid #444', background: '#333', color: '#fff' }}
+                      />
+                      {error && <div className="error-message">{error}</div>}
+                    </Box>
+                  )}
+                  {/* Run, Pause, Reset, Randomize buttons below input */}
+                  <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+                    <button className="mode-toggle" style={{ backgroundColor: '#1976d2' }} onClick={handleRun} disabled={isPlaying}>
+                      Start Visualization
+                    </button>
+                    <button className="mode-toggle" style={{ backgroundColor: '#b71c1c' }} onClick={handlePause} disabled={!isPlaying}>
+                      Pause
+                    </button>
+                    <button className="mode-toggle" style={{ backgroundColor: '#757575' }} onClick={handleReset}>
+                      Reset
+                    </button>
+                    <button className="mode-toggle" style={{ backgroundColor: '#388e3c' }} onClick={randomizeArray}>
+                      Randomize Array
+                    </button>
+                    <button className="mode-toggle" onClick={handleModeSwitch}>
+                      {isComparisonMode ? 'Switch to Single Mode' : 'Switch to Comparison Mode'}
+                    </button>
+                  </Box>
+                </Box>
+              </Box>
+            </Paper>
+          </Box>
+          {/* Only render the grid/visualizer section, not the editor, below */}
+          {!isComparisonMode ? (
+            <Grid container spacing={4} direction="row" alignItems="stretch">
+              <Grid item xs={12} md={6} sx={{ minWidth: 0, minHeight: 400, display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
+                <Box sx={{ width: '100%', height: 400, flex: 1 }}>
+                  <MonacoEditor
+                    height="100%"
+                    defaultLanguage={pendingLanguage1}
+                    defaultValue={ALGORITHM_CODE?.[pendingLanguage1]?.[pendingAlgorithm1] || '// No code available for this algorithm/language.'}
+                    theme="vs-dark"
+                    options={{
+                      minimap: { enabled: false },
+                      fontSize: 14,
+                      lineNumbers: 'on',
+                      scrollBeyondLastLine: false,
+                      automaticLayout: true,
+                      readOnly: true,
+                      domReadOnly: true,
+                    }}
+                    key={pendingLanguage1 + pendingAlgorithm1}
+                    onMount={(editor, monaco) => {
+                      monacoEditorRef.current = editor;
+                      monacoInstanceRef.current = monaco;
+                      if (steps1[currentStep1]?.lineNumber) {
+                        editor.revealLineInCenter(steps1[currentStep1].lineNumber)
+                        editor.__highlightDeco = editor.deltaDecorations([], [
+                          {
+                            range: new monaco.Range(steps1[currentStep1].lineNumber, 1, steps1[currentStep1].lineNumber, 1),
+                            options: {
+                              isWholeLine: true,
+                              className: 'highlighted-line',
+                            },
+                          },
+                        ])
+                      }
+                    }}
+                  />
+                </Box>
+              </Grid>
+              <Grid item xs={12} md={6} sx={{ minWidth: 0, minHeight: 400, display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
+                <Box sx={{ width: '100%', height: 400, flex: 1 }}>
+                  <Visualizer
+                    steps={steps1.length > 0 ? steps1 : getInitialStep(pendingArray)}
+                    currentStep={currentStep1}
+                    onStepChange={handleStepChange1}
+                    algorithmName={`${algorithms[pendingAlgorithm1]}`}
+                  />
+                </Box>
+                <Box sx={{ mt: 2, mb: 1, color: '#1976d2', fontWeight: 500, fontSize: 16 }}>
+                  {steps1[currentStep1]?.description}
+                </Box>
+                {renderControls(
+                  handleRun,
+                  handlePause,
+                  () => handleStepChange1(Math.max(0, currentStep1 - 1)),
+                  () => handleStepChange1(Math.min((steps1.length || 1) - 1, currentStep1 + 1)),
+                  isPlaying,
+                  !isPlaying,
+                  currentStep1 === 0,
+                  currentStep1 === (steps1.length || 1) - 1,
+                  speed,
+                  setSpeed
+                )}
+              </Grid>
+            </Grid>
+          ) : (
+            <Grid container spacing={4} direction="row" alignItems="stretch">
+              <Grid item xs={12} md={6} display="flex" flexDirection="column" alignItems="center" sx={{ minWidth: 0, minHeight: 400 }}>
+                {/* Algorithm 1 Combo-box above the graph */}
+                <Box sx={{ width: '100%', maxWidth: 900, minWidth: 400, mb: 2 }}>
                   <AlgorithmControls
+                    title={undefined}
                     algorithm={pendingAlgorithm1}
                     language={pendingLanguage1}
                     languages={languages}
@@ -408,206 +539,83 @@ const App: React.FC = () => {
                     onLanguageChange={handleLanguage1Change}
                     onAlgorithmChange={handleAlgorithm1Change}
                     isComparisonMode={isComparisonMode}
-                    showArrayInput={true}
-                    inputArray={pendingArray}
-                    onInputArrayChange={handleInputChange}
-                    inputError={error}
+                    showArrayInput={false}
                     onExplainClick={() => handleExplain(pendingAlgorithm1, pendingArray)}
                     explainButtonRight
                   />
                 </Box>
-              )}
-              {/* In comparison mode, show only the array input field */}
-              {isComparisonMode && (
-                <Box sx={{ mt: 2 }}>
-                  <label htmlFor="array-input" style={{ color: '#fff', marginBottom: 4, display: 'block', fontWeight: 500 }}>Input Array</label>
-                  <input
-                    id="array-input"
-                    className="array-input"
-                    value={pendingArray}
-                    onChange={handleInputChange}
-                    placeholder="Enter array (e.g., 64,34,25,12,22,11,90)"
-                    style={{ width: '100%', padding: '12px', fontSize: '16px', borderRadius: '4px', border: '1px solid #444', background: '#333', color: '#fff' }}
+                <Box sx={{ width: '100%', maxWidth: 900, minWidth: 400 }}>
+                  <Visualizer
+                    steps={steps1.length > 0 ? steps1 : getInitialStep(pendingArray)}
+                    currentStep={currentStep1}
+                    onStepChange={handleStepChange1}
+                    algorithmName={`${algorithms[pendingAlgorithm1]}`}
                   />
-                  {error && <div className="error-message">{error}</div>}
                 </Box>
-              )}
-              {/* Run, Pause, Reset, Randomize buttons below input */}
-              <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
-                <button className="mode-toggle" style={{ backgroundColor: '#1976d2' }} onClick={handleRun} disabled={isPlaying}>
-                  Start Visualization
-                </button>
-                <button className="mode-toggle" style={{ backgroundColor: '#b71c1c' }} onClick={handlePause} disabled={!isPlaying}>
-                  Pause
-                </button>
-                <button className="mode-toggle" style={{ backgroundColor: '#757575' }} onClick={handleReset}>
-                  Reset
-                </button>
-                <button className="mode-toggle" style={{ backgroundColor: '#388e3c' }} onClick={randomizeArray}>
-                  Randomize Array
-                </button>
-                <button className="mode-toggle" onClick={handleModeSwitch}>
-                  {isComparisonMode ? 'Switch to Single Mode' : 'Switch to Comparison Mode'}
-                </button>
-              </Box>
-            </Box>
-          </Box>
-        </Paper>
-      </Box>
-      {/* Only render the grid/visualizer section, not the editor, below */}
-      {!isComparisonMode ? (
-        <Grid container spacing={4} direction="row" alignItems="stretch">
-          <Grid item xs={12} md={6} sx={{ minWidth: 0, minHeight: 400, display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
-            <Box sx={{ width: '100%', height: 400, flex: 1 }}>
-              <MonacoEditor
-                height="100%"
-                defaultLanguage={pendingLanguage1}
-                defaultValue={ALGORITHM_CODE?.[pendingLanguage1]?.[pendingAlgorithm1] || '// No code available for this algorithm/language.'}
-                theme="vs-dark"
-                options={{
-                  minimap: { enabled: false },
-                  fontSize: 14,
-                  lineNumbers: 'on',
-                  scrollBeyondLastLine: false,
-                  automaticLayout: true,
-                  readOnly: true,
-                  domReadOnly: true,
-                }}
-                key={pendingLanguage1 + pendingAlgorithm1}
-                onMount={(editor, monaco) => {
-                  monacoEditorRef.current = editor;
-                  monacoInstanceRef.current = monaco;
-                  if (steps1[currentStep1]?.lineNumber) {
-                    editor.revealLineInCenter(steps1[currentStep1].lineNumber)
-                    editor.__highlightDeco = editor.deltaDecorations([], [
-                      {
-                        range: new monaco.Range(steps1[currentStep1].lineNumber, 1, steps1[currentStep1].lineNumber, 1),
-                        options: {
-                          isWholeLine: true,
-                          className: 'highlighted-line',
-                        },
-                      },
-                    ])
-                  }
-                }}
-              />
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={6} sx={{ minWidth: 0, minHeight: 400, display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
-            <Box sx={{ width: '100%', height: 400, flex: 1 }}>
-              <Visualizer
-                steps={steps1.length > 0 ? steps1 : getInitialStep(pendingArray)}
-                currentStep={currentStep1}
-                onStepChange={handleStepChange1}
-                algorithmName={`${algorithms[pendingAlgorithm1]}`}
-              />
-            </Box>
-            <Box sx={{ mt: 2, mb: 1, color: '#1976d2', fontWeight: 500, fontSize: 16 }}>
-              {steps1[currentStep1]?.description}
-            </Box>
-            {renderControls(
-              handleRun,
-              handlePause,
-              () => handleStepChange1(Math.max(0, currentStep1 - 1)),
-              () => handleStepChange1(Math.min((steps1.length || 1) - 1, currentStep1 + 1)),
-              isPlaying,
-              !isPlaying,
-              currentStep1 === 0,
-              currentStep1 === (steps1.length || 1) - 1,
-              speed,
-              setSpeed
-            )}
-          </Grid>
-        </Grid>
-      ) : (
-        <Grid container spacing={4} direction="row" alignItems="stretch">
-          <Grid item xs={12} md={6} display="flex" flexDirection="column" alignItems="center" sx={{ minWidth: 0, minHeight: 400 }}>
-            {/* Algorithm 1 Combo-box above the graph */}
-            <Box sx={{ width: '100%', maxWidth: 900, minWidth: 400, mb: 2 }}>
-              <AlgorithmControls
-                title={undefined}
-                algorithm={pendingAlgorithm1}
-                language={pendingLanguage1}
-                languages={languages}
-                algorithms={algorithms}
-                onLanguageChange={handleLanguage1Change}
-                onAlgorithmChange={handleAlgorithm1Change}
-                isComparisonMode={isComparisonMode}
-                showArrayInput={false}
-                onExplainClick={() => handleExplain(pendingAlgorithm1, pendingArray)}
-                explainButtonRight
-              />
-            </Box>
-            <Box sx={{ width: '100%', maxWidth: 900, minWidth: 400 }}>
-              <Visualizer
-                steps={steps1.length > 0 ? steps1 : getInitialStep(pendingArray)}
-                currentStep={currentStep1}
-                onStepChange={handleStepChange1}
-                algorithmName={`${algorithms[pendingAlgorithm1]}`}
-              />
-            </Box>
-            <Box sx={{ mt: 2, mb: 1, color: '#1976d2', fontWeight: 500, fontSize: 16 }}>
-              {steps1[currentStep1]?.description}
-            </Box>
-            <Box sx={{ mb: 1, color: '#b71c1c', fontWeight: 600 }}>Swaps: {swapCount1}</Box>
-            {renderControls(
-              handleRun,
-              handlePause,
-              () => handleStepChange1(Math.max(0, currentStep1 - 1)),
-              () => handleStepChange1(Math.min((steps1.length || 1) - 1, currentStep1 + 1)),
-              isPlaying,
-              !isPlaying,
-              currentStep1 === 0,
-              currentStep1 === (steps1.length || 1) - 1,
-              speed,
-              setSpeed
-            )}
-          </Grid>
-          <Grid item xs={12} md={6} display="flex" flexDirection="column" alignItems="center" sx={{ minWidth: 0, minHeight: 400 }}>
-            {/* Algorithm 2 Combo-box above the graph */}
-            <Box sx={{ width: '100%', maxWidth: 900, minWidth: 400, mb: 2 }}>
-              <AlgorithmControls
-                title={undefined}
-                algorithm={pendingAlgorithm2}
-                language={pendingLanguage2}
-                languages={languages}
-                algorithms={algorithms}
-                onLanguageChange={handleLanguage2Change}
-                onAlgorithmChange={handleAlgorithm2Change}
-                isComparisonMode={isComparisonMode}
-                showArrayInput={false}
-                onExplainClick={() => handleExplain(pendingAlgorithm2, pendingArray)}
-                explainButtonRight
-              />
-            </Box>
-            <Box sx={{ width: '100%', maxWidth: 900, minWidth: 400 }}>
-              <Visualizer
-                steps={steps2.length > 0 ? steps2 : getInitialStep(pendingArray)}
-                currentStep={currentStep2}
-                onStepChange={handleStepChange2}
-                algorithmName={`${algorithms[pendingAlgorithm2]}`}
-              />
-            </Box>
-            <Box sx={{ mt: 2, mb: 1, color: '#1976d2', fontWeight: 500, fontSize: 16 }}>
-              {steps2[currentStep2]?.description}
-            </Box>
-            <Box sx={{ mb: 1, color: '#b71c1c', fontWeight: 600 }}>Swaps: {swapCount2}</Box>
-            {renderControls(
-              handleRun,
-              handlePause,
-              () => handleStepChange2(Math.max(0, currentStep2 - 1)),
-              () => handleStepChange2(Math.min((steps2.length || 1) - 1, currentStep2 + 1)),
-              isPlaying,
-              !isPlaying,
-              currentStep2 === 0,
-              currentStep2 === (steps2.length || 1) - 1,
-              speed2,
-              setSpeed2
-            )}
-          </Grid>
-        </Grid>
+                <Box sx={{ mt: 2, mb: 1, color: '#1976d2', fontWeight: 500, fontSize: 16 }}>
+                  {steps1[currentStep1]?.description}
+                </Box>
+                <Box sx={{ mb: 1, color: '#b71c1c', fontWeight: 600 }}>Swaps: {swapCount1}</Box>
+                {renderControls(
+                  handleRun,
+                  handlePause,
+                  () => handleStepChange1(Math.max(0, currentStep1 - 1)),
+                  () => handleStepChange1(Math.min((steps1.length || 1) - 1, currentStep1 + 1)),
+                  isPlaying,
+                  !isPlaying,
+                  currentStep1 === 0,
+                  currentStep1 === (steps1.length || 1) - 1,
+                  speed,
+                  setSpeed
+                )}
+              </Grid>
+              <Grid item xs={12} md={6} display="flex" flexDirection="column" alignItems="center" sx={{ minWidth: 0, minHeight: 400 }}>
+                {/* Algorithm 2 Combo-box above the graph */}
+                <Box sx={{ width: '100%', maxWidth: 900, minWidth: 400, mb: 2 }}>
+                  <AlgorithmControls
+                    title={undefined}
+                    algorithm={pendingAlgorithm2}
+                    language={pendingLanguage2}
+                    languages={languages}
+                    algorithms={algorithms}
+                    onLanguageChange={handleLanguage2Change}
+                    onAlgorithmChange={handleAlgorithm2Change}
+                    isComparisonMode={isComparisonMode}
+                    showArrayInput={false}
+                    onExplainClick={() => handleExplain(pendingAlgorithm2, pendingArray)}
+                    explainButtonRight
+                  />
+                </Box>
+                <Box sx={{ width: '100%', maxWidth: 900, minWidth: 400 }}>
+                  <Visualizer
+                    steps={steps2.length > 0 ? steps2 : getInitialStep(pendingArray)}
+                    currentStep={currentStep2}
+                    onStepChange={handleStepChange2}
+                    algorithmName={`${algorithms[pendingAlgorithm2]}`}
+                  />
+                </Box>
+                <Box sx={{ mt: 2, mb: 1, color: '#1976d2', fontWeight: 500, fontSize: 16 }}>
+                  {steps2[currentStep2]?.description}
+                </Box>
+                <Box sx={{ mb: 1, color: '#b71c1c', fontWeight: 600 }}>Swaps: {swapCount2}</Box>
+                {renderControls(
+                  handleRun,
+                  handlePause,
+                  () => handleStepChange2(Math.max(0, currentStep2 - 1)),
+                  () => handleStepChange2(Math.min((steps2.length || 1) - 1, currentStep2 + 1)),
+                  isPlaying,
+                  !isPlaying,
+                  currentStep2 === 0,
+                  currentStep2 === (steps2.length || 1) - 1,
+                  speed2,
+                  setSpeed2
+                )}
+              </Grid>
+            </Grid>
+          )}
+        </Container>
       )}
-    </Container>
+    </>
   )
 }
 

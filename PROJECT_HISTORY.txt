@@ -28,6 +28,9 @@ A web application to visually demonstrate and compare sorting algorithms. Users 
   - Only one editor and one graph are shown in single mode, side by side
   - Layout and UX improvements for clarity and usability
   - Fixed the case-sensitivity issue for the comparison mode screenshot in the README by matching the filename (SS.jpg) with the reference in the README, ensuring the image displays correctly on GitHub.
+  - Added a fully animated, theme-matching Merge Sort tree visualization using Framer Motion. The tree now animates the recursive splitting and merging process step-by-step, showing the entire process from breakdown to final sorted array. This is visually impressive and educational, and is integrated with the app's dark theme.
+  - Refactored MergeSortTree to model the merge sort process as a sequence of tree states, enabling true step-by-step animation.
+  - All changes have been pushed to GitHub.
 
 ## Libraries, Frameworks, and Languages
 - **Frontend:**
